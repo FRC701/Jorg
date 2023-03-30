@@ -19,3 +19,11 @@ namespace OperatorConstants {
 constexpr int kDriverControllerPort = 0;
 
 }  // namespace OperatorConstants
+
+namespace ChassisConstants {
+
+static constexpr int kFrontLeft = 1;
+static constexpr int kFrontRight = 2;
+static constexpr int kRearLeft = 3;
+static constexpr int kRearRight = 4;
+}
