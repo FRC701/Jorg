@@ -13,17 +13,34 @@
  * command-specific namespaces within this header, which can then be used where
  * they are needed.
  */
+#include <units/length.h>
+#include <units/time.h>
+#include <numbers>
+#include <ctre/Phoenix.h>
 
-namespace OperatorConstants {
+namespace OperatorConstants
+{
 
-constexpr int kDriverControllerPort = 0;
+    constexpr int kDriverControllerPort = 0;
 
-}  // namespace OperatorConstants
+} // namespace OperatorConstants
 
-namespace ChassisConstants {
+namespace ChassisConstants
+{
 
-static constexpr int kFrontLeft = 1;
-static constexpr int kFrontRight = 2;
-static constexpr int kRearLeft = 3;
-static constexpr int kRearRight = 4;
+    static constexpr int kFrontLeft = 1;
+    static constexpr int kFrontRight = 2;
+    static constexpr int kRearLeft = 3;
+    static constexpr int kRearRight = 4;
+    const auto DriveMotorDirection = ctre::phoenix::motorcontrol::TalonFXInvertType::Clockwise;
+    const auto TurnMotorDirection = ctre::phoenix::motorcontrol::TalonFXInvertType::Clockwise;
+    const double CanCoderOffset = 0;
+
+}
+
+namespace GearRatios
+{
+    const double TractionWheelDiameter{0.127};
+    const double TractionWheelCirumference{2 * std::numbers::pi * TractionWheelDiameter};
+    const double DriveBox{6.75 * TractionWheelCirumference};
 }
