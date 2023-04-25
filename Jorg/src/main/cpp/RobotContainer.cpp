@@ -8,9 +8,15 @@
 
 #include "commands/Autos.h"
 #include "commands/ExampleCommand.h"
+#include "commands/SwerveDrive.h"
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
+  mTrain.SetDefaultCommand(SwerveDrive(mTrain, 
+  [this] {return driver.GetX();},
+  [this] {return driver.GetY();}, 
+  [this] {return driver.GetTwist();}
+  ));
 
   // Configure the button bindings
   ConfigureBindings();

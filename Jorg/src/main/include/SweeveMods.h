@@ -11,6 +11,8 @@
 #include <frc2/command/SubsystemBase.h>
 #include <frc/kinematics/SwerveModulePosition.h>
 #include <units/length.h>
+#include <frc/controller/ProfiledPIDController.h>
+#include <frc/controller/PIDController.h>
 
 class SweeveMods
 {
@@ -26,15 +28,18 @@ public:
 
   SweeveMods(SwerveBits& swervebits);
 
-  frc::SwerveModuleState GetCurrentState() const;
-  frc::SwerveModulePosition GetCurrentPosition() const;
+  frc::SwerveModuleState GetCurrentState(); //const;
+  frc::SwerveModulePosition GetCurrentPosition(); //const;
 
-  void SetSwerveModuleState(const frc::SwerveModuleState &state);
+  void SetSwerveModuleState(const frc::SwerveModuleState &refstate);
 
   double GetSpeedmps();
   double GetAngle();
 private:
+  double angleIWANT;
 
+  frc::PIDController mdrivepid;
+   frc::ProfiledPIDController<units::radians> mturnppid;
   SwerveBits &mSwerveBits;
 
 };
