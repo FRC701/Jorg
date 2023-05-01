@@ -9,7 +9,8 @@ SweeveMods::SweeveMods(SwerveBits &swerveBits)
     : mdrivepid{0.1, 0, 0}
     , mturnppid{1.0, 0.0, 0.0, 
                             {ChassisConstants::MaxAngularVelocity, ChassisConstants::ModuleMaxAngularAcceleration}},
-                             mSwerveBits(swerveBits)
+     FFcontrol{1_V, 0.5_V / 1_rad_per_s}
+     , mSwerveBits(swerveBits)
 {
     ConfigureModules(Part::drive);
     ConfigureModules(Part::turn);
@@ -41,10 +42,11 @@ void SweeveMods::SetSwerveModuleState(const frc::SwerveModuleState &refstate)
     const auto angleIWANT{state.angle.Radians()};
     const auto speedIWANT{state.speed};
     const double turnoutput = mturnppid.Calculate(units::radian_t{mSwerveBits.mCanCoder.GetAbsolutePosition() * 1 / 180, angleIWANT});
+    const auto feedforwardTurnOutput = FFcontrol.Calculate(mturnppid.GetSetpoint().velocity);
     const double driveoutput = mdrivepid.Calculate(GetSpeedmps(), speedIWANT.value());
 
     mSwerveBits.mDriveMotor.SetVoltage(units::volt_t(driveoutput));
-    mSwerveBits.mTurnMotor.SetVoltage(units::volt_t(turnoutput));
+    mSwerveBits.mTurnMotor.SetVoltage(units::volt_t(turnoutput) + feedforwardTurnOutput);
 }
 
 /*frc::SwerveModuleState SweeveMods::GetCurrentState() {

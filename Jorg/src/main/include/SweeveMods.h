@@ -13,6 +13,7 @@
 #include <units/length.h>
 #include <frc/controller/ProfiledPIDController.h>
 #include <frc/controller/PIDController.h>
+#include <frc/controller/SimpleMotorFeedforward.h>
 
 class SweeveMods
 {
@@ -40,6 +41,7 @@ private:
 
   frc::PIDController mdrivepid;
    frc::ProfiledPIDController<units::radians> mturnppid;
+  frc::SimpleMotorFeedforward<units::radians> FFcontrol;
   SwerveBits &mSwerveBits;
 
 };
