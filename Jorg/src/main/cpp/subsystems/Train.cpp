@@ -8,7 +8,9 @@
 
  Train::Train(SwerveModules &mSwerveModules)
  : mSwerveModules(mSwerveModules)
- {}
+ {
+    gyro.Reset();
+ }
     // This method will be called once per scheduler run
     void Train::Swervey(units::meters_per_second_t xSpeed,
              units::meters_per_second_t ySpeed,
@@ -44,8 +46,8 @@
     frc::SmartDashboard::PutNumber("Rear Left Angle", mSwerveModules.rearleft.GetAngle());
     frc::SmartDashboard::PutNumber("Rear Right Angle",  mSwerveModules.rearright.GetAngle());
 
-    frc::SmartDashboard::PutNumber("Front Left Angle", mSwerveModules.frontleft.GetSpeedmps());
-    frc::SmartDashboard::PutNumber("Front Right Angle",  mSwerveModules.frontright.GetSpeedmps());
-    frc::SmartDashboard::PutNumber("Rear Left Angle", mSwerveModules.rearleft.GetSpeedmps());
-    frc::SmartDashboard::PutNumber("Rear Right Angle",  mSwerveModules.rearright.GetSpeedmps());
+    frc::SmartDashboard::PutNumber("Front Left Speed MPS", mSwerveModules.frontleft.GetSpeedmps());
+    frc::SmartDashboard::PutNumber("Front Right Speed MPS",  mSwerveModules.frontright.GetSpeedmps());
+    frc::SmartDashboard::PutNumber("Rear Left Speed MPS", mSwerveModules.rearleft.GetSpeedmps());
+    frc::SmartDashboard::PutNumber("Rear Right Speed MPS",  mSwerveModules.rearright.GetSpeedmps());
     }
