@@ -1,3 +1,4 @@
+#include <frc/kinematics/SwerveDriveKinematics.h>
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -6,7 +7,6 @@
 
 #include <ctre/Phoenix.h>
 #include <frc/geometry/Translation2d.h>
-#include <frc/kinematics/SwerveDriveKinematics.h>
 #include <frc/kinematics/SwerveDriveOdometry.h>
 #include <frc2/command/SubsystemBase.h>
 #include <frc/kinematics/SwerveModulePosition.h>
@@ -24,8 +24,6 @@ public:
     WPI_TalonFX mTurnMotor;
     WPI_CANCoder mCanCoder;
   };
-  enum class Part{drive, turn, coder};
-  void ConfigureModules(const Part& type);
 
   SweeveMods(SwerveBits& swervebits);
 
@@ -35,9 +33,8 @@ public:
   void SetSwerveModuleState(const frc::SwerveModuleState &refstate);
 
   double GetSpeedmps();
-  double GetAngle();
+  units::degree_t GetAngle();
 private:
-  double angleIWANT;
 
   frc::PIDController mdrivepid;
    frc::ProfiledPIDController<units::radians> mturnppid;
@@ -45,3 +42,7 @@ private:
   SwerveBits &mSwerveBits;
 
 };
+ 
+ namespace units {
+  UNIT_ADD(length, native_tick, native_ticks, nt, unit<std::ratio<360, 2048>, units::degrees>)
+ }

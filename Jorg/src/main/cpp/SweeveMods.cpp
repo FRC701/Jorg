@@ -12,36 +12,18 @@ SweeveMods::SweeveMods(SwerveBits &swerveBits)
      FFcontrol{1_V, 0.5_V / 1_rad_per_s}
      , mSwerveBits(swerveBits)
 {
-    ConfigureModules(Part::drive);
-    ConfigureModules(Part::turn);
-    ConfigureModules(Part::coder);
-}
-
-void SweeveMods::ConfigureModules(const Part &type)
-{
-    switch (type)
-    {
-    case Part::drive:
         mSwerveBits.mDriveMotor.SetInverted(ChassisConstants::DriveMotorDirection);
-        break;
-
-    case Part::turn:
-        mSwerveBits.mTurnMotor.SetInverted(ChassisConstants::TurnMotorDirection);
-        mturnppid.EnableContinuousInput(units::radian_t(-std::numbers::pi), units::radian_t(std::numbers::pi)); // not sure about the logic here
-        break;
-
-    case Part::coder:
+         mSwerveBits.mTurnMotor.SetInverted(ChassisConstants::TurnMotorDirection);
+        mturnppid.EnableContinuousInput(units::radian_t(-std::numbers::pi), units::radian_t(std::numbers::pi)); 
         mSwerveBits.mCanCoder.ConfigMagnetOffset(ChassisConstants::CanCoderOffset);
-        break;
-    }
 }
 
 void SweeveMods::SetSwerveModuleState(const frc::SwerveModuleState &refstate)
 {
-    const auto state = frc::SwerveModuleState::Optimize(refstate, units::degree_t(mSwerveBits.mCanCoder.GetAbsolutePosition()));
+    const auto state = frc::SwerveModuleState::Optimize(refstate, units::radian_t(GetAngle()));
     const auto angleIWANT{state.angle.Radians()};
     const auto speedIWANT{state.speed};
-    const double turnoutput = mturnppid.Calculate(units::radian_t{mSwerveBits.mCanCoder.GetAbsolutePosition() * 1 / 180, angleIWANT});
+    const double turnoutput = mturnppid.Calculate(units::radian_t{GetAngle().value()}, angleIWANT);
     const auto feedforwardTurnOutput = FFcontrol.Calculate(mturnppid.GetSetpoint().velocity);
     const double driveoutput = mdrivepid.Calculate(GetSpeedmps(), speedIWANT.value());
 
@@ -56,15 +38,15 @@ void SweeveMods::SetSwerveModuleState(const frc::SwerveModuleState &refstate)
 
 frc::SwerveModulePosition SweeveMods::GetCurrentPosition() {
     return {units::meter_t{mSwerveBits.mDriveMotor.GetSelectedSensorPosition() * GearRatios::DriveBox}, 
-            units::radian_t(GetAngle() * 1/180)};
+            units::radian_t(GetAngle())};
 }
 // void SweeveMods::O
-double SweeveMods::GetAngle()
+units::degree_t SweeveMods::GetAngle()
 {
-    return mSwerveBits.mCanCoder.GetAbsolutePosition();
+    return units::degree_t{mSwerveBits.mCanCoder.GetAbsolutePosition()};
 }
 
 double SweeveMods::GetSpeedmps()
 {
-    return (mSwerveBits.mDriveMotor.GetSelectedSensorVelocity() * GearRatios::DriveBox) / 60;
+    return ((mSwerveBits.mDriveMotor.GetSelectedSensorVelocity() * 10) / 2048) / GearRatios::DriveBox * GearRatios::TractionWheelCirumference;
 }

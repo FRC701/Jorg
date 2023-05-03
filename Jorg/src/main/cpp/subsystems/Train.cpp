@@ -41,10 +41,10 @@
     void Train::Periodic() {
     UPDATEODOMETRY();
 
-    frc::SmartDashboard::PutNumber("Front Left Angle", mSwerveModules.frontleft.GetAngle());
-    frc::SmartDashboard::PutNumber("Front Right Angle",  mSwerveModules.frontright.GetAngle());
-    frc::SmartDashboard::PutNumber("Rear Left Angle", mSwerveModules.rearleft.GetAngle());
-    frc::SmartDashboard::PutNumber("Rear Right Angle",  mSwerveModules.rearright.GetAngle());
+    frc::SmartDashboard::PutNumber("Front Left Angle", mSwerveModules.frontleft.GetAngle().value());
+    frc::SmartDashboard::PutNumber("Front Right Angle",  mSwerveModules.frontright.GetAngle().value());
+    frc::SmartDashboard::PutNumber("Rear Left Angle", mSwerveModules.rearleft.GetAngle().value());
+    frc::SmartDashboard::PutNumber("Rear Right Angle",  mSwerveModules.rearright.GetAngle().value());
 
     frc::SmartDashboard::PutNumber("Front Left Speed MPS", mSwerveModules.frontleft.GetSpeedmps());
     frc::SmartDashboard::PutNumber("Front Right Speed MPS",  mSwerveModules.frontright.GetSpeedmps());
