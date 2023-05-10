@@ -19,6 +19,8 @@
 #include <ctre/Phoenix.h>
 #include <units/angular_velocity.h>
 #include <units/angular_acceleration.h>
+#include <frc/PneumaticsModuleType.h>
+#include <frc/DoubleSolenoid.h>
 
 namespace OperatorConstants
 {
@@ -49,6 +51,14 @@ namespace ChassisConstants
     static constexpr int kFrontRightCoder = 10;
     static constexpr int kRearLeftCoder = 11;
     static constexpr int kRearRightCoder = 12;
+
+    static constexpr int kSolenoidExtend = 13;
+    static constexpr int kSolenoidRetract = 14;
+
+    static const auto kModuleType{frc::PneumaticsModuleType::CTREPCM};
+
+    static frc::DoubleSolenoid Pneumatic{kModuleType, kSolenoidExtend, kSolenoidRetract};
+
 
     const auto DriveMotorDirection = ctre::phoenix::motorcontrol::TalonFXInvertType::Clockwise;
     const auto TurnMotorDirection = ctre::phoenix::motorcontrol::TalonFXInvertType::Clockwise;

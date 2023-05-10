@@ -14,6 +14,7 @@
 #include <frc/controller/ProfiledPIDController.h>
 #include <frc/controller/PIDController.h>
 #include <frc/controller/SimpleMotorFeedforward.h>
+#include <frc/DoubleSolenoid.h>
 
 class SweeveMods
 {
@@ -32,6 +33,7 @@ public:
 
   void SetSwerveModuleState(const frc::SwerveModuleState &refstate);
 
+
   double GetSpeedmps();
   units::degree_t GetAngle();
 private:
@@ -40,9 +42,4 @@ private:
    frc::ProfiledPIDController<units::radians> mturnppid;
   frc::SimpleMotorFeedforward<units::radians> FFcontrol;
   SwerveBits &mSwerveBits;
-
 };
- 
- namespace units {
-  UNIT_ADD(length, native_tick, native_ticks, nt, unit<std::ratio<360, 2048>, units::degrees>)
- }

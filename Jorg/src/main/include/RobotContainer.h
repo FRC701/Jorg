@@ -7,12 +7,12 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/CommandXboxController.h>
 #include <SweeveMods.h>
+#include <frc2/command/button/CommandJoystick.h>
 
 #include "Constants.h"
 #include "subsystems/ExampleSubsystem.h"
 #include "subsystems/Chassis.h"
 #include "subsystems/Train.h"
-#include "frc2/command/button/CommandJoystick.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -33,16 +33,21 @@ class RobotContainer {
 
   frc2::CommandXboxController m_driverController{
       OperatorConstants::kDriverControllerPort};
+      
+  frc2::Trigger button2 = driver.Button(2);
+      
 
   // The robot's subsystems are defined here...
   ExampleSubsystem m_subsystem;
 
+
+  
   SweeveMods::SwerveBits mSwerveModule1{kFrontLeftMod, kFrontLeftTurnMod, kFrontLeftCoder};
-  SweeveMods::SwerveBits mSwerveModule2{kFrontRightMod, kFrontRightTurnMod, kFrontRightCoder};
+  SweeveMods::SwerveBits mSwerveModule2{kFrontRightMod, kFrontRightTurnMod, kFrontRightCoder}; 
   SweeveMods::SwerveBits mSwerveModule3{kRearLeftMod, kRearLeftTurnMod, kRearLeftCoder};
   SweeveMods::SwerveBits mSwerveModule4{kRearRightMod, kRearRightTurnMod, kRearRightCoder};
 
-  Train::SwerveModules mSwerveModules{mSwerveModule1, mSwerveModule2, mSwerveModule3, mSwerveModule4};
+  Train::SwerveModules mSwerveModules{mSwerveModule1, mSwerveModule2, mSwerveModule3, mSwerveModule4, Pneumatic};
   Train mTrain{mSwerveModules};  
 
   Chassis::ChassisList mChassisList{kFrontLeft, kFrontRight, kRearLeft, kRearRight};

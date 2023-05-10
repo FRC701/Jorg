@@ -15,6 +15,7 @@
 #include <units/angle.h>
 #include <units/angular_acceleration.h>
 #include <units/angular_velocity.h>
+#include <frc/DoubleSolenoid.h>
 
 #include "SweeveMods.h"
 
@@ -29,6 +30,7 @@ public:
     SweeveMods frontright;
     SweeveMods rearleft;
     SweeveMods rearright;
+    frc::DoubleSolenoid &mPneumatic;
   };
 
   Train(SwerveModules &mSwerveModules);
@@ -41,6 +43,7 @@ public:
             
   void UPDATEODOMETRY();
   void Periodic() override;
+  void SetSolenoid(frc::DoubleSolenoid::Value position); 
 
 private:
 
@@ -63,4 +66,5 @@ private:
                                                                             mSwerveModules.frontright.GetCurrentPosition(),
                                                                             mSwerveModules.rearleft.GetCurrentPosition(),
                                                                             mSwerveModules.rearright.GetCurrentPosition()}};
+
 };
