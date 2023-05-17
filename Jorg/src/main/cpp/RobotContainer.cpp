@@ -5,17 +5,23 @@
 #include "RobotContainer.h"
 
 #include <frc2/command/button/Trigger.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include "commands/Autos.h"
 #include "commands/ExampleCommand.h"
 #include "commands/SwerveDrive.h"
+#include "commands/GetTurretPosition.h"
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
   mTrain.SetDefaultCommand(SwerveDrive(mTrain, 
   [this] {return driver.GetX();},
   [this] {return driver.GetY();}, 
-  [this] {return driver.GetTwist();}
+  [this] {return driver.GetTwist();
+  frc::SmartDashboard::SetDefaultNumber("turret angle", 0);
+  
+  frc::SmartDashboard::PutData("turret Position", new GetTurretPosition(mTurret));
+  }
   ));
 
   // Configure the button bindings

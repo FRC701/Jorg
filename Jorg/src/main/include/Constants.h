@@ -27,6 +27,12 @@ namespace OperatorConstants
 
 } // namespace OperatorConstants
 
+namespace TurretConstants
+{
+    static constexpr int kTurretMotor = 13;
+    static constexpr int kTurretGyro = 14;
+}
+
 namespace ChassisConstants
 {
 

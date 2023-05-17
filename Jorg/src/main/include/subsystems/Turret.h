@@ -18,8 +18,13 @@ class Turret : public frc2::PIDSubsystem {
 
   Turret(TurretSystems& turretSystems);
 
- protected:
   void UseOutput(double output, double setpoint) override;
+
+  double PowerSet(double speed);
+
+  void Periodic() override;
+
+ protected:
 
   double GetMeasurement() override;
 

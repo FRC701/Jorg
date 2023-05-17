@@ -13,6 +13,7 @@
 #include "subsystems/Chassis.h"
 #include "subsystems/Train.h"
 #include "frc2/command/button/CommandJoystick.h"
+#include "subsystems/Turret.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -21,6 +22,9 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and trigger mappings) should be declared here.
  */
+
+  using namespace TurretConstants;
+
 class RobotContainer {
  public:
   RobotContainer();
@@ -29,6 +33,7 @@ class RobotContainer {
 
  private:
   // Replace with CommandPS4Controller or CommandJoystick if needed
+  
    frc2::CommandJoystick driver{0};
 
   frc2::CommandXboxController m_driverController{
@@ -36,6 +41,9 @@ class RobotContainer {
 
   // The robot's subsystems are defined here...
   ExampleSubsystem m_subsystem;
+  
+  Turret::TurretSystems mTurretElectronics{kTurretMotor, kTurretGyro};
+  Turret mTurret{mTurretElectronics};
 
   SweeveMods::SwerveBits mSwerveModule1{kFrontLeftMod, kFrontLeftTurnMod, kFrontLeftCoder};
   SweeveMods::SwerveBits mSwerveModule2{kFrontRightMod, kFrontRightTurnMod, kFrontRightCoder};

@@ -5,6 +5,7 @@
 #include <cmath>
 
 #include "subsystems/Turret.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 #include "Constants.h"
 
 Turret::Turret(TurretSystems& turretSystems)
@@ -25,4 +26,15 @@ double Turret::GetMeasurement()
 { 
   return remainder(mTurretSystems.mTurretMotor.GetSelectedSensorPosition(), GearRatios::TurretGearRatio * 2048) / 
   (GearRatios::TurretGearRatio * 2048 /360);
+}
+
+double Turret::PowerSet(double speed)
+{
+  mTurretSystems.mTurretMotor.Set(speed);
+  return speed;
+}
+
+void Turret::Periodic()
+{
+  frc::SmartDashboard::PutNumber("Turret Angle", GetMeasurement());
 }
