@@ -64,4 +64,5 @@ namespace GearRatios
     const double TractionWheelDiameter{0.127};
     const double TractionWheelCirumference{2 * std::numbers::pi * TractionWheelDiameter};
     const double DriveBox{6.75 * TractionWheelCirumference};
+    const double TurretGearRatio{25.14/1};
 }
