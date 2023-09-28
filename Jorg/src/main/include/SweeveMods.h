@@ -25,7 +25,7 @@ public:
     WPI_CANCoder mCanCoder;
   };
   enum class Part{drive, turn, coder};
-  void ConfigureModules(const Part& type);
+  void ConfigureModules(const Part& type, double Offset = 0);
 
   SweeveMods(SwerveBits& swervebits);
 

@@ -52,7 +52,12 @@ namespace ChassisConstants
 
     const auto DriveMotorDirection = ctre::phoenix::motorcontrol::TalonFXInvertType::Clockwise;
     const auto TurnMotorDirection = ctre::phoenix::motorcontrol::TalonFXInvertType::Clockwise;
-    const double CanCoderOffset = 0;
+
+    const double CanCoderOffsetfl = 0; /* kFrontRight{54.844};kRearRight{-154.951}kFrontLeft{-139.922};kRearLeft{103.008};}*/
+    const double CanCoderOffsetfr = 0;
+    const double CanCoderOffsetrl = 0;
+    const double CanCoderOffsetrr = 0;
+
     static const auto MaxAngularVelocity = std::numbers::pi * 1_rad_per_s;
     static const auto ModuleMaxAngularAcceleration = std::numbers::pi * 2_rad_per_s / 1_s;
     const double TOPSPEED = 4.877; //mps

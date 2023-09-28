@@ -10,6 +10,10 @@
  : mSwerveModules(mSwerveModules)
  {
     gyro.Reset();
+    mSwerveModules.frontleft.ConfigureModules(SweeveMods::Part::coder, ChassisConstants::CanCoderOffsetfl);
+    mSwerveModules.frontright.ConfigureModules(SweeveMods::Part::coder, ChassisConstants::CanCoderOffsetfr);
+    mSwerveModules.rearleft.ConfigureModules(SweeveMods::Part::coder, ChassisConstants::CanCoderOffsetrl);
+    mSwerveModules.rearright.ConfigureModules(SweeveMods::Part::coder, ChassisConstants::CanCoderOffsetrr);
  }
     // This method will be called once per scheduler run
     void Train::Swervey(units::meters_per_second_t xSpeed,

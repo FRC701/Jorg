@@ -42,6 +42,8 @@ public:
   void UPDATEODOMETRY();
   void Periodic() override;
 
+  SwerveModules &mSwerveModules;
+
 private:
 
   frc::Translation2d m_locationFrontLeft{+0_in, +0_in};
@@ -51,7 +53,6 @@ private:
 
   AHRS gyro{frc::SPI::kMXP};
 
-  SwerveModules &mSwerveModules;
 
   // declared private and exposed only through public methods.
    frc::SwerveDriveKinematics<4> mKinematics{m_locationFrontLeft,

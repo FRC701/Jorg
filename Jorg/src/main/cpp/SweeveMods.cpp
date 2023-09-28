@@ -14,10 +14,9 @@ SweeveMods::SweeveMods(SwerveBits &swerveBits)
 {
     ConfigureModules(Part::drive);
     ConfigureModules(Part::turn);
-    ConfigureModules(Part::coder);
 }
 
-void SweeveMods::ConfigureModules(const Part &type)
+void SweeveMods::ConfigureModules(const Part &type, double Offset)
 {
     switch (type)
     {
@@ -31,7 +30,7 @@ void SweeveMods::ConfigureModules(const Part &type)
         break;
 
     case Part::coder:
-        mSwerveBits.mCanCoder.ConfigMagnetOffset(ChassisConstants::CanCoderOffset);
+        mSwerveBits.mCanCoder.ConfigMagnetOffset(Offset);
         break;
     }
 }
