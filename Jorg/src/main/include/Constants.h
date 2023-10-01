@@ -30,10 +30,10 @@ namespace OperatorConstants
 namespace ChassisConstants
 {
 
-    static constexpr int kFrontLeft = 1;
-    static constexpr int kFrontRight = 2;
-    static constexpr int kRearLeft = 3;
-    static constexpr int kRearRight = 4;
+    static constexpr int kFrontLeft = 100;
+    static constexpr int kFrontRight = 200;
+    static constexpr int kRearLeft = 300;
+    static constexpr int kRearRight = 400;
 
     static constexpr int kFrontLeftMod = 1;
     static constexpr int kFrontRightMod = 2;
@@ -53,10 +53,10 @@ namespace ChassisConstants
     const auto DriveMotorDirection = ctre::phoenix::motorcontrol::TalonFXInvertType::Clockwise;
     const auto TurnMotorDirection = ctre::phoenix::motorcontrol::TalonFXInvertType::Clockwise;
 
-    const double CanCoderOffsetfl = 0; /* kFrontRight{54.844};kRearRight{-154.951}kFrontLeft{-139.922};kRearLeft{103.008};}*/
-    const double CanCoderOffsetfr = 0;
-    const double CanCoderOffsetrl = 0;
-    const double CanCoderOffsetrr = 0;
+    const double CanCoderOffsetfl = 54.88; /* kFrontRight{54.844};kRearRight{-154.951}kFrontLeft{-139.922};kRearLeft{103.008};}*/
+    const double CanCoderOffsetfr = -154.951;
+    const double CanCoderOffsetrl = -139.922;
+    const double CanCoderOffsetrr = 103.008;
 
     static const auto MaxAngularVelocity = std::numbers::pi * 1_rad_per_s;
     static const auto ModuleMaxAngularAcceleration = std::numbers::pi * 2_rad_per_s / 1_s;
