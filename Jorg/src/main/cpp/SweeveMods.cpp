@@ -12,7 +12,6 @@ SweeveMods::SweeveMods(SwerveBits &swerveBits)
      FFcontrol{1_V, 0.5_V / 1_rad_per_s}
      , mSwerveBits(swerveBits)
 {
-    ConfigureModules(Part::drive);
     ConfigureModules(Part::turn);
 }
 
