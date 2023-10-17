@@ -13,6 +13,8 @@ SweeveMods::SweeveMods(SwerveBits &swerveBits)
      , mSwerveBits(swerveBits)
 {
     ConfigureModules(Part::turn);
+    mSwerveBits.mDriveMotor.SetNeutralMode(NeutralMode::Coast);
+    mSwerveBits.mTurnMotor.SetNeutralMode(NeutralMode::Coast);
 }
 
 void SweeveMods::ConfigureModules(const Part &type, double Offset)
@@ -30,6 +32,8 @@ void SweeveMods::ConfigureModules(const Part &type, double Offset)
 
     case Part::coder:
         mSwerveBits.mCanCoder.ConfigMagnetOffset(Offset);
+        mSwerveBits.mCanCoder.ConfigAbsoluteSensorRange(AbsoluteSensorRange::Signed_PlusMinus180);
+        mSwerveBits.mCanCoder.ConfigSensorDirection(true);
         break;
     }
 }
