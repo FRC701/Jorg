@@ -6,11 +6,12 @@
 #include <Constants.h>
 
 SweeveMods::SweeveMods(SwerveBits &swerveBits)
-    : mdrivepid{0.1, 0, 0}
+    : mdrivepid{2.2956, 0, 0}
     , mturnppid{1.0, 0.0, 0.0, 
-                            {ChassisConstants::MaxAngularVelocity, ChassisConstants::ModuleMaxAngularAcceleration}},
-     FFcontrol{1_V, 0.5_V / 1_rad_per_s}
-     , mSwerveBits(swerveBits)
+                            {ChassisConstants::MaxAngularVelocity, ChassisConstants::ModuleMaxAngularAcceleration}}
+    , dFFcontrol{1_V, 0.5_V / 1_rad_per_s}
+    , tFFcontrol{1_V, 0.5_V / 1_rad_per_s}
+    , mSwerveBits(swerveBits)
 {
     ConfigureModules(Part::turn);
     mSwerveBits.mDriveMotor.SetNeutralMode(NeutralMode::Coast);
@@ -43,11 +44,12 @@ void SweeveMods::SetSwerveModuleState(const frc::SwerveModuleState &refstate)
     const auto state = frc::SwerveModuleState::Optimize(refstate, units::degree_t(mSwerveBits.mCanCoder.GetAbsolutePosition()));
     const auto angleIWANT{state.angle.Radians()};
     const auto speedIWANT{state.speed};
-    const double turnoutput = mturnppid.Calculate(units::radian_t{mSwerveBits.mCanCoder.GetAbsolutePosition() * 1 / 180, angleIWANT});
-    const auto feedforwardTurnOutput = FFcontrol.Calculate(mturnppid.GetSetpoint().velocity);
+    const double turnoutput = mturnppid.Calculate(units::radian_t{mSwerveBits.mCanCoder.GetAbsolutePosition() * std::numbers::pi / 180, angleIWANT});
+    const auto feedforwardTurnOutput = tFFcontrol.Calculate(mturnppid.GetSetpoint().velocity);
     const double driveoutput = mdrivepid.Calculate(GetSpeedmps(), speedIWANT.value());
+    const auto feedforwardDriveOutput = dFFcontrol.Calculate(state.speed);
 
-    mSwerveBits.mDriveMotor.SetVoltage(units::volt_t(driveoutput));
+    mSwerveBits.mDriveMotor.SetVoltage(units::volt_t(driveoutput) + feedforwardDriveOutput);
     mSwerveBits.mTurnMotor.SetVoltage(units::volt_t(turnoutput) + feedforwardTurnOutput);
 }
 
@@ -58,7 +60,7 @@ void SweeveMods::SetSwerveModuleState(const frc::SwerveModuleState &refstate)
 
 frc::SwerveModulePosition SweeveMods::GetCurrentPosition() {
     return {units::meter_t{mSwerveBits.mDriveMotor.GetSelectedSensorPosition() * GearRatios::DriveBox}, 
-            units::radian_t(GetAngle() * 1/180)};
+            units::radian_t(GetAngle() * std::numbers::pi /180)};
 }
 // void SweeveMods::O
 double SweeveMods::GetAngle()
