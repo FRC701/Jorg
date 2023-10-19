@@ -29,7 +29,7 @@ public:
 
   SweeveMods(SwerveBits& swervebits);
 
-  frc::SwerveModuleState GetCurrentState(); //const;
+  //frc::SwerveModuleState GetCurrentState(); //const;
   frc::SwerveModulePosition GetCurrentPosition(); //const;
 
   void SetSwerveModuleState(const frc::SwerveModuleState &refstate);

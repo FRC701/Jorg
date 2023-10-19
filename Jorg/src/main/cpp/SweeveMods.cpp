@@ -7,9 +7,10 @@
 
 SweeveMods::SweeveMods(SwerveBits &swerveBits)
     : mdrivepid{2.2956, 0, 0}
+    , dFFcontrol{1_V, 0.5_V / 1_rad_per_s}
     , mturnppid{1.0, 0.0, 0.0, 
                             {ChassisConstants::MaxAngularVelocity, ChassisConstants::ModuleMaxAngularAcceleration}}
-    , dFFcontrol{1_V, 0.5_V / 1_rad_per_s}
+    
     , tFFcontrol{1_V, 0.5_V / 1_rad_per_s}
     , mSwerveBits(swerveBits)
 {
