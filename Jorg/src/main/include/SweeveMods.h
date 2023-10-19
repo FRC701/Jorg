@@ -40,7 +40,7 @@ private:
   double angleIWANT;
 
   frc::PIDController mdrivepid;
-  frc::SimpleMotorFeedforward<units::radians> dFFcontrol;
+  frc::SimpleMotorFeedforward<units::meters> dFFcontrol;
    frc::ProfiledPIDController<units::radians> mturnppid;
    frc::SimpleMotorFeedforward<units::radians> tFFcontrol;
   SwerveBits &mSwerveBits;

@@ -10,6 +10,8 @@
  : mSwerveModules(mSwerveModules)
  {
     gyro.Reset();
+    mSwerveModules.rearleft.ConfigureModules(SweeveMods::Part::drive);
+    mSwerveModules.frontleft.ConfigureModules(SweeveMods::Part::drive);
     mSwerveModules.frontleft.ConfigureModules(SweeveMods::Part::coder, ChassisConstants::CanCoderOffsetfl);
     mSwerveModules.frontright.ConfigureModules(SweeveMods::Part::coder, ChassisConstants::CanCoderOffsetfr);
     mSwerveModules.rearleft.ConfigureModules(SweeveMods::Part::coder, ChassisConstants::CanCoderOffsetrl);

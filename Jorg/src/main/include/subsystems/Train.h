@@ -46,10 +46,10 @@ public:
 
 private:
 
-  frc::Translation2d m_locationFrontLeft{+0_in, +0_in};
-  frc::Translation2d m_locationFrontRight{+0_in, -0_in};
-  frc::Translation2d m_locationRearLeft{-0_in, +0_in};
-  frc::Translation2d m_locationRearRight{-0_in, -0_in};
+  frc::Translation2d m_locationFrontLeft{+12_in, -12_in};
+  frc::Translation2d m_locationFrontRight{+12_in, +12_in};
+  frc::Translation2d m_locationRearLeft{-12_in, -12_in};
+  frc::Translation2d m_locationRearRight{-12_in, 12_in};
 
   AHRS gyro{frc::SPI::kMXP};
 

@@ -7,7 +7,7 @@
 
 SweeveMods::SweeveMods(SwerveBits &swerveBits)
     : mdrivepid{2.2956, 0, 0}
-    , dFFcontrol{1_V, 0.5_V / 1_rad_per_s}
+    , dFFcontrol{1_V, 3_V / 1_mps}
     , mturnppid{1.0, 0.0, 0.0, 
                             {ChassisConstants::MaxAngularVelocity, ChassisConstants::ModuleMaxAngularAcceleration}}
     
@@ -24,7 +24,7 @@ void SweeveMods::ConfigureModules(const Part &type, double Offset)
     switch (type)
     {
     case Part::drive:
-        mSwerveBits.mDriveMotor.SetInverted(ChassisConstants::DriveMotorDirection);
+        mSwerveBits.mDriveMotor.SetInverted(true);
         break;
 
     case Part::turn:
@@ -48,7 +48,7 @@ void SweeveMods::SetSwerveModuleState(const frc::SwerveModuleState &refstate)
     const double turnoutput = mturnppid.Calculate(units::radian_t{mSwerveBits.mCanCoder.GetAbsolutePosition() * std::numbers::pi / 180, angleIWANT});
     const auto feedforwardTurnOutput = tFFcontrol.Calculate(mturnppid.GetSetpoint().velocity);
     const double driveoutput = mdrivepid.Calculate(GetSpeedmps(), speedIWANT.value());
-    const auto feedforwardDriveOutput = dFFcontrol.Calculate(state.speed);
+    const auto feedforwardDriveOutput = dFFcontrol.Calculate(speedIWANT);
 
     mSwerveBits.mDriveMotor.SetVoltage(units::volt_t(driveoutput) + feedforwardDriveOutput);
     mSwerveBits.mTurnMotor.SetVoltage(units::volt_t(turnoutput) + feedforwardTurnOutput);
