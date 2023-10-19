@@ -24,7 +24,7 @@ void SwerveDrive::Execute()
 {
   mTrain.Swervey(XspeedLimiter.Calculate(frc::ApplyDeadband(Xaxis(), 0.02)) * units::meters_per_second_t(ChassisConstants::TOPSPEED),
                  YspeedLimiter.Calculate(frc::ApplyDeadband(Yaxis(), 0.02)) * units::meters_per_second_t(ChassisConstants::TOPSPEED),
-                 RotLimiter.Calculate(frc::ApplyDeadband(Rotation(), 0.02)) * ChassisConstants::MaxAngularVelocity,
+                 RotLimiter.Calculate(frc::ApplyDeadband(Rotation() * 0, 0.20)) * ChassisConstants::MaxAngularVelocity,
                  false);
 }
 
