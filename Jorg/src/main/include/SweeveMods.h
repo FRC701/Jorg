@@ -34,15 +34,20 @@ public:
 
   void SetSwerveModuleState(const frc::SwerveModuleState &refstate);
 
+  
   double GetSpeedmps();
   double GetAngle();
+  enum class Data{angle, speed};
+  double GetDesired(const Data& type);
 private:
-  double angleIWANT;
+  //double angleIWANT;
 
   frc::PIDController mdrivepid;
   frc::SimpleMotorFeedforward<units::meters> dFFcontrol;
    frc::ProfiledPIDController<units::radians> mturnppid;
    frc::SimpleMotorFeedforward<units::radians> tFFcontrol;
   SwerveBits &mSwerveBits;
+  units::angle::radian_t mDesiredAngle;
+  units::velocity::meters_per_second_t mDesiredSpeed;
 
 };

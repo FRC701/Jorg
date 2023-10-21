@@ -66,7 +66,7 @@ namespace ChassisConstants
 namespace GearRatios
 {
     const double FalconEncodertoDegs {4096/360};
-    const double TractionWheelDiameter{0.127};
+    const double TractionWheelDiameter{0.1016};
     const double TractionWheelCirumference{std::numbers::pi * TractionWheelDiameter};
     const double DriveBox{6.75 * TractionWheelCirumference};
 }

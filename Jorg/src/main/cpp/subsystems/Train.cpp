@@ -56,4 +56,14 @@
     frc::SmartDashboard::PutNumber("Front Right Speed MPS",  mSwerveModules.frontright.GetSpeedmps());
     frc::SmartDashboard::PutNumber("Rear Left Speed MPS", mSwerveModules.rearleft.GetSpeedmps());
     frc::SmartDashboard::PutNumber("Rear Right Speed MPS",  mSwerveModules.rearright.GetSpeedmps());
+
+    frc::SmartDashboard::PutNumber("Desired Front Left Speed MPS", mSwerveModules.frontleft.GetDesired(SweeveMods::Data::speed));
+    frc::SmartDashboard::PutNumber("Desired Front Right Speed MPS",  mSwerveModules.frontright.GetDesired(SweeveMods::Data::speed));
+    frc::SmartDashboard::PutNumber("Desired Rear Left Speed MPS", mSwerveModules.rearleft.GetDesired(SweeveMods::Data::speed));
+    frc::SmartDashboard::PutNumber("Desired Rear Right Speed MPS",  mSwerveModules.rearright.GetDesired(SweeveMods::Data::speed));
+    
+    frc::SmartDashboard::PutNumber("Desired Front Left Angle", mSwerveModules.frontleft.GetDesired(SweeveMods::Data::angle));
+    frc::SmartDashboard::PutNumber("Desired Front Right Angle",  mSwerveModules.frontright.GetDesired(SweeveMods::Data::angle));
+    frc::SmartDashboard::PutNumber("Desired Rear Left Angle", mSwerveModules.rearleft.GetDesired(SweeveMods::Data::angle));
+    frc::SmartDashboard::PutNumber("Desired Rear Right Angle",  mSwerveModules.rearright.GetDesired(SweeveMods::Data::angle));
     }
