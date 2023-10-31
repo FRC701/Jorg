@@ -43,12 +43,12 @@ void SweeveMods::SetSwerveModuleState(const frc::SwerveModuleState &refstate)
     mDesiredAngle = state.angle.Radians();
     mDesiredSpeed = state.speed;
     const double turnoutput = mturnppid.Calculate(units::radian_t{mSwerveBits.mCanCoder.GetAbsolutePosition() * std::numbers::pi / 180, mDesiredAngle});
-    const auto feedforwardTurnOutput = tFFcontrol.Calculate(mturnppid.GetSetpoint().velocity);
+    //const auto feedforwardTurnOutput = tFFcontrol.Calculate(mturnppid.GetSetpoint().velocity);
     const double driveoutput = mdrivepid.Calculate(GetSpeedmps(), mDesiredSpeed.value());
     const auto feedforwardDriveOutput = dFFcontrol.Calculate(mDesiredSpeed);
 
     mSwerveBits.mDriveMotor.SetVoltage(units::volt_t(driveoutput) + feedforwardDriveOutput);
-    mSwerveBits.mTurnMotor.SetVoltage(units::volt_t(turnoutput) + feedforwardTurnOutput);
+    mSwerveBits.mTurnMotor.SetVoltage(units::volt_t(turnoutput));
 }
 
 /*frc::SwerveModuleState SweeveMods::GetCurrentState() {
